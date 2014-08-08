@@ -1,8 +1,10 @@
 package br.unesp.feg.modelo;
 
+import java.awt.Color;
+
 public class Locais {
 	private String descLocal;
-	private String corLocal;
+	private Color corLocal;
 	private int linhaLocal;
 	private int colunaLocal;
 	
@@ -13,11 +15,11 @@ public class Locais {
 	public void setDescLocal(String descLocal) {
 		this.descLocal = descLocal;
 	}
-	public String getCorLocal() {
+	public Color getCorLocal() {
 		return corLocal;
 	}
-	public void setCorLocal(String corLocal) {
-		this.corLocal = corLocal;
+	public void setCorLocal(Color color) {
+		this.corLocal = color;
 	}
 	public int getLinhaLocal() {
 		return linhaLocal;

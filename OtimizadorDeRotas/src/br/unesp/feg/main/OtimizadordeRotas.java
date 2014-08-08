@@ -9,13 +9,16 @@ import br.unesp.feg.ui.*;
 public class OtimizadordeRotas {
 
 	List<Locais> lLocais = new ArrayList<Locais>();
-	int linhaLocais;
-	int colunaLocais;
+	//static int linhaLocais;
+	//static int colunaLocais;
 	
 	public static void main(String[] args) {
-		new TelaDeOpcoes().montaTela();
-		//new EscolhedorDeXML().escolhe();
-		//new TelaDeOpcoes();
+		TelaDeOpcoes tela1 = new TelaDeOpcoes();
+		tela1.montaTela();
+		//linhaLocais = tela1.getLinha();
+		//colunaLocais = tela1.getColuna();
+		
+		//new TelaMapaMoveObjeto().montaTela();
 	}
 
 }
