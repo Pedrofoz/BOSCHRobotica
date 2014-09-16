@@ -41,11 +41,6 @@ public class Rotas {
 		ArrayList<Waypoint> pontosSelect = tela1.tracaRota();
 		nav.addWaypoint((Waypoint) pontosSelect.subList(0,pontosSelect.size()));
 		nav.followPath();
-		//oiiiiiiieeee
-		//fuuuuunffaaa *-*
-		
-		//a vida não é justa
-		//Serah q agora vai ??
 	}
 
 }
