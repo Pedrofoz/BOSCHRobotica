@@ -43,6 +43,8 @@ public class Rotas {
 		nav.followPath();
 		//oiiiiiiieeee
 		//fuuuuunffaaa *-*
+		
+		//a vida não é justa
 	}
 
 }
