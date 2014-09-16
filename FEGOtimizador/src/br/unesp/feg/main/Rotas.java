@@ -42,7 +42,7 @@ public class Rotas {
 		nav.addWaypoint((Waypoint) pontosSelect.subList(0,pontosSelect.size()));
 		nav.followPath();
 		
-		//alteração pra vc ver
+		// TESTANDO 1,2
 	}
 
 }
