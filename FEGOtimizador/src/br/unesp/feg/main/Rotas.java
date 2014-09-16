@@ -21,7 +21,7 @@ public class Rotas {
 		 * Configurações do NXT
 		 */
 		
-		/*PilotProps pp = new PilotProps();
+		PilotProps pp = new PilotProps();
 		pp.loadPersistentValues();
 		float wheelDiameter = Float.parseFloat(pp.getProperty(PilotProps.KEY_WHEELDIAMETER, "4.32"));
 		float trackWidth = Float.parseFloat(pp.getProperty(PilotProps.KEY_TRACKWIDTH, "16.35"));
@@ -40,7 +40,8 @@ public class Rotas {
 		tela1.montaTela();
 		ArrayList<Waypoint> pontosSelect = tela1.tracaRota();
 		nav.addWaypoint((Waypoint) pontosSelect.subList(0,pontosSelect.size()));
-		nav.followPath();*/
+		nav.followPath();
+		//oiiiiiiieeee
 	}
 
 }
