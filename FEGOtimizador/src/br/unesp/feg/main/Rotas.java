@@ -43,6 +43,7 @@ public class Rotas {
 		nav.followPath();
 		
 		// TESTANDO 1,2
+		//TESTANDO COMIT
 	}
 
 }
