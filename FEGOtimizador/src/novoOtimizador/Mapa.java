@@ -150,10 +150,10 @@ public class Mapa {
 					 * [INICIO][a][b][c]
 					 * 	                [d][FINAL]
 					 * 	                [e][g][h][FINAL]
-					 * 
+					 * ..
 					 * Ao final, preencher as linhas com colunas vazias com as colunas anteriores e considerar
 					 * apenas as que tiverem [FINAL] como último elemento, ou seja:
-					 * 
+					 *
 					 * 1) [INICIO][a][b][c][d][FINAL]
 					 * 2) [INICIO][a][b][c][e][g][h][FINAL]
 					 */
