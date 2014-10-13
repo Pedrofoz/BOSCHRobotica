@@ -12,6 +12,7 @@ public class Mapa {
 	 */
 	protected ArrayList<Rua> ruas;
 	protected ArrayList<Destinos> destinos;
+	protected Rua[][] caminhosPossiveis = {};
 	
 	//Construtores
 	public Mapa() 
@@ -54,7 +55,14 @@ public class Mapa {
 		int a = 0;
 		Rua r = new Rua();
 		
-		
+		/*for(Rua r1: ruas)
+		{
+			r = (Rua) it.next();
+			if (destino[0].getNomeDaRua().equals(r.getNome()))
+			{
+				aL.add(r);
+			}
+		}*/
 		while(it.hasNext()) //Percorrer o arrayList até o fim
 		{
 			r = (Rua) it.next();
@@ -129,21 +137,24 @@ public class Mapa {
 		 * (deve-se considerar o sentido de fluxo pelas ruas, e cascatear as respostas, ou seja, montar aL final)
 		 */
 			
-		Rua[][] caminhosPossiveis = {};
+		
 		aL = new ArrayList<Rua>();
 		int l = 0;
 		int c = 0;
+		caminhosPossiveis[0][0] = atualIn;
+		c++;
 		Rua atual = atualIn;
+		int linhaOrigem = 0;
 		Rua[] ruasPossiveis = {};
 		boolean nCaminhosFinalizados = false;
+		boolean liberaCol = false;
 		while(nCaminhosFinalizados == false)
 		{
+			liberaCol = false;
 			if(atual.getDirecao()[0] == true)
 			{				
 				//Inicio -> Fim
-				ruasPossiveis = verConexoes(atual.getFim());
-				for (int i = 0; i < ruasPossiveis.length; i++);
-				{
+				ruasPossiveis = verConexoes(atual.getFim(), atual);
 					//Cascatear o processo de conexoes
 					//Adicionando toda nova conexao a uma nova linha e copiando as colunas anteriores
 					/*
@@ -157,7 +168,34 @@ public class Mapa {
 					 * 1) [INICIO][a][b][c][d][FINAL]
 					 * 2) [INICIO][a][b][c][e][g][h][FINAL]
 					 */
-				}
+					for (int z = 0; z < ruasPossiveis.length; z++) 
+					{
+						if(!compararRua(ruasPossiveis[z],l)) //verifica se a rua a ser adicionada não é preexistente na mesma linha
+						{
+							l++;
+							caminhosPossiveis[l][c] = ruasPossiveis[z];
+							for(int v = c; v >= 0; v--)
+							{
+								//preenche as colunas anteriores da nova linha, com os valores de coluna da linha de Origem
+								caminhosPossiveis[l][v] = caminhosPossiveis[linhaOrigem][v];
+							}
+							liberaCol = true;//libera uma nova coluna, caso uma nova bifurcação tenha sidop encontrada
+						}						
+					}
+					if(liberaCol)
+						c++;
+					//mover apos inseir o outro caso de if, linhaOrigem++ e atual blabla  para depois do 2º if (atual.getDirecao()[1] == true)
+					linhaOrigem++; //atualiza linha de Origem para análise dos novos casos
+					/*linhaOrigem = 0
+					 * [a]
+					 * 		[b1]
+					 * 		[b2]
+					 * 
+					 * linhaOrigem = 1
+					 * [a]	[b1]	[c1]
+					 * 				[c2]
+					 */
+					atual = caminhosPossiveis[linhaOrigem][caminhosPossiveis[linhaOrigem].length];	//ultimo elemento da linha de Origem
 				
 			}
 			if(atual.getDirecao()[1] == true)
@@ -176,13 +214,13 @@ public class Mapa {
 	}
 	
 	//Analisa todas as ruas que fazem conexão com um determinado Waypoint
-	public Rua[] verConexoes(Waypoint a)
+	public Rua[] verConexoes(Waypoint a, Rua b)
 	{
-		Rua[] r = {};
+		Rua[] r = {b};
 		Rua ruaux = new Rua();
 		ArrayList<Rua> auxL = new ArrayList<Rua>();
 		Iterator it = ruas.iterator();
-		int i = 0;
+		int i = 1;
 		while(it.hasNext())
 		{
 			ruaux = (Rua) it.next();
@@ -194,5 +232,16 @@ public class Mapa {
 			}
 		}
 		return r;
+	}
+	public Boolean compararRua(Rua r, int linha)
+	{
+		for(int col = 0; col < caminhosPossiveis[0].length; col++)
+			{
+				if(r.equals(caminhosPossiveis[linha][col]))
+				{
+					return false;
+				}
+			}
+		return true;	
 	}
 }
