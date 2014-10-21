@@ -136,8 +136,7 @@ public class Mapa {
 		 * os pontos de inicio e fim da rua em questão até o ponto de destino final
 		 * (deve-se considerar o sentido de fluxo pelas ruas, e cascatear as respostas, ou seja, montar aL final)
 		 */
-			
-		
+
 		aL = new ArrayList<Rua>();
 		int l = 0;
 		int c = 0;
@@ -182,32 +181,62 @@ public class Mapa {
 							liberaCol = true;//libera uma nova coluna, caso uma nova bifurcação tenha sidop encontrada
 						}						
 					}
-					if(liberaCol)
-						c++;
-					//mover apos inseir o outro caso de if, linhaOrigem++ e atual blabla  para depois do 2º if (atual.getDirecao()[1] == true)
-					linhaOrigem++; //atualiza linha de Origem para análise dos novos casos
-					/*linhaOrigem = 0
-					 * [a]
-					 * 		[b1]
-					 * 		[b2]
-					 * 
-					 * linhaOrigem = 1
-					 * [a]	[b1]	[c1]
-					 * 				[c2]
-					 */
-					atual = caminhosPossiveis[linhaOrigem][caminhosPossiveis[linhaOrigem].length];	//ultimo elemento da linha de Origem
-				
 			}
 			if(atual.getDirecao()[1] == true)
 			{
 				//Fim -> Inicio
 				//Executar similarmente ao anterior (Inicio -> Fim)
+				ruasPossiveis = verConexoes(atual.getInicio(), atual);
+				//Cascatear o processo de conexoes
+				//Adicionando toda nova conexao a uma nova linha e copiando as colunas anteriores
+				/*
+				 * [INICIO][a][b][c]
+				 * 	                [d][FINAL]
+				 * 	                [e][g][h][FINAL]
+				 * .
+				 * Ao final, preencher as linhas com colunas vazias com as colunas anteriores e considerar
+				 * apenas as que tiverem [FINAL] como último elemento, ou seja:
+				 *
+				 * 1) [INICIO][a][b][c][d][FINAL]
+				 * 2) [INICIO][a][b][c][e][g][h][FINAL]
+				 */
+				for (int z = 0; z < ruasPossiveis.length; z++) 
+				{
+					if(!compararRua(ruasPossiveis[z],l)) //verifica se a rua a ser adicionada não é preexistente na mesma linha
+					{
+						l++;
+						caminhosPossiveis[l][c] = ruasPossiveis[z];
+						for(int v = c; v >= 0; v--)
+						{
+							//preenche as colunas anteriores da nova linha, com os valores de coluna da linha de Origem
+							caminhosPossiveis[l][v] = caminhosPossiveis[linhaOrigem][v];
+						}
+						liberaCol = true;//libera uma nova coluna, caso uma nova bifurcação tenha sidop encontrada
+					}						
+				}
 			}
-			
+			if(liberaCol)
+				c++;
+			//mover apos inseir o outro caso de if, linhaOrigem++ e atual blabla  para depois do 2º if (atual.getDirecao()[1] == true)
+			linhaOrigem++; //atualiza linha de Origem para análise dos novos casos
+			/*linhaOrigem = 0
+			 * [a]
+			 * 		[b1]
+			 * 		[b2]
+			 * 
+			 * linhaOrigem = 1
+			 * [a]	[b1]	[c1]
+			 * 				[c2]
+			 */
+			atual = caminhosPossiveis[linhaOrigem][caminhosPossiveis[linhaOrigem].length];	//ultimo elemento da linha de Origem
 			/*
 			 * Adicionar método para comparar os caminhos por tempo e distancia
 			 * Encontrando o desejado
 			 */
+			if (caminhosPossiveis[linhaOrigem] == null)
+			{
+				nCaminhosFinalizados = true;
+			}
 			//nCaminhosFinalizados = true;
 		}
 		return aL;
