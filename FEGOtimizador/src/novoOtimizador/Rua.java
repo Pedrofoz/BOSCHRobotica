@@ -10,6 +10,7 @@ public class Rua
 	 * oi
 	 */
 	//Parametros
+	private Integer id;
 	protected String nome;
 	protected Waypoint inicio;
 	protected Waypoint fim;
@@ -30,9 +31,10 @@ public class Rua
 		//
 	}
 	
-	public Rua(String nome, Waypoint inicio, Waypoint fim, float velocidade, boolean[] direcao, boolean[] tipo) 
+	public Rua(Integer id, String nome, Waypoint inicio, Waypoint fim, float velocidade, boolean[] direcao, boolean[] tipo) 
 	{
 		super();
+		setId(id);
 		setNome(nome);
 		setInicio(inicio);
 		setFim(fim);
@@ -89,5 +91,13 @@ public class Rua
 	public String getNome() 
 	{
 		return nome;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }

@@ -81,13 +81,15 @@ public class Mapa {
 		double d;
 		Rua atualIn;
 		r = (Rua) it.next();
-		d = Math.sqrt((Math.pow((destino[0].getLocalizacao().getX()-r.getInicio().getX()),2.0))+(Math.pow((destino[0].getLocalizacao().getY()-r.getInicio().getY()),2.0)))+Math.sqrt((Math.pow((destino[0].getLocalizacao().getX()-r.getFim().getX()),2.0))+(Math.pow((destino[0].getLocalizacao().getY()-r.getFim().getY()),2.0)));
+		//d = Math.sqrt((Math.pow((destino[0].getLocalizacao().getX()-r.getInicio().getX()),2.0))+(Math.pow((destino[0].getLocalizacao().getY()-r.getInicio().getY()),2.0)))+Math.sqrt((Math.pow((destino[0].getLocalizacao().getX()-r.getFim().getX()),2.0))+(Math.pow((destino[0].getLocalizacao().getY()-r.getFim().getY()),2.0)));
+		d = destino[0].getLocalizacao().distanceSq(r.getInicio());
 		atualIn = r;
 		double x;
 		while(it.hasNext())
 		{
 			r = (Rua) it.next();
 			x = Math.sqrt((Math.pow((destino[0].getLocalizacao().getX()-r.getInicio().getX()),2.0))+(Math.pow((destino[0].getLocalizacao().getY()-r.getInicio().getY()),2.0)))+Math.sqrt((Math.pow((destino[0].getLocalizacao().getX()-r.getFim().getX()),2.0))+(Math.pow((destino[0].getLocalizacao().getY()-r.getFim().getY()),2.0)));
+			x = destino[0].getLocalizacao().distanceSq(r.getInicio());
 			if (d > x)
 			{
 				d = x;
