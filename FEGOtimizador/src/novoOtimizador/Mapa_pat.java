@@ -1,9 +1,6 @@
 package novoOtimizador;
 
-import java.awt.Point;
-import java.awt.geom.Line2D;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import lejos.geom.Line;
 import lejos.robotics.navigation.Waypoint;
