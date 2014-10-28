@@ -72,8 +72,6 @@ public class Mapa {
 			}
 		}
 		it = aL.iterator(); //aL com as ruas de mesmo nome
-		
-		
 		/*
 		 * Com o nome da Rua, encontrar qual Rua, das ruas (trechos) com o mesmo nome, o robô está!
 		 * Encontrar através da menor distância do ponto de destino[0] aos pontos de Inicio e Fim das ruas...
