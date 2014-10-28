@@ -45,8 +45,13 @@ public class Mapa {
 	}
 
 	//Método para encontrar o menor caminho
-	public ArrayList<Rua> menorCaminho(Destinos[] destino )
+	public ArrayList<Rua> menorCaminho(Destinos[] destino, int op )
 	{
+		/*
+		 * op = 0 ----> menor distancia
+		 * op = 1 ----> menor tempo
+		 * op = 2 ----> menor numero de ruas
+		 */
 		// destino[0] = ponto atual
 		// destino[1] = ponto final
 		//Variaveis auxiliares
@@ -216,7 +221,7 @@ public class Mapa {
 			if(liberaCol)
 				c++;
 			//mover apos inseir o outro caso de if, linhaOrigem++ e atual blabla  para depois do 2º if (atual.getDirecao()[1] == true)
-			linhaOrigem++; //atualiza linha de Origem para análise dos novos casos
+			
 			/*linhaOrigem = 0
 			 * [a]
 			 * 		[b1]
@@ -226,20 +231,73 @@ public class Mapa {
 			 * [a]	[b1]	[c1]
 			 * 				[c2]
 			 */
-			atual = caminhosPossiveis[linhaOrigem][caminhosPossiveis[linhaOrigem].length];	//ultimo elemento da linha de Origem
+			
+			do{
+				linhaOrigem++; //atualiza linha de Origem para análise dos novos casos
+				atual = caminhosPossiveis[linhaOrigem][caminhosPossiveis[linhaOrigem].length];	//ultimo elemento da linha de Origem
+			}while(atual == atualFim); //Nesta condição, não há necessidade de verificar as conexões... já chegamos à rua final
+
 			/*
 			 * Adicionar método para comparar os caminhos por tempo e distancia
 			 * Encontrando o desejado
 			 */
-			if (caminhosPossiveis[linhaOrigem] == null)
+			if (caminhosPossiveis[linhaOrigem][0] == null)
 			{
 				nCaminhosFinalizados = true;
 			}
 			//nCaminhosFinalizados = true;
 		}
+		Rua[][] caminhosObtidos = {};
+		l = 0;
+		for(int i = 0; i < caminhosPossiveis.length; i++)
+		{
+			for (int j = 0; j < caminhosPossiveis[i].length; j++)
+			{
+				if(caminhosPossiveis[i][j] == atualFim)
+				{
+					for (int s = 0; s < caminhosPossiveis[i].length; s++)
+					{
+						caminhosObtidos[l][s] = caminhosPossiveis[i][s];
+					}
+				}
+			}
+			l++;
+		}
+		switch(op)
+		{
+			case 0: aL = menorDist(caminhosObtidos);break;
+			case 1: break;
+			case 2: break;
+			default: break;
+		}
 		return aL;
 	}
-	
+	public ArrayList<Rua> menorDist(Rua[][] caminhos)
+	{
+		ArrayList<Rua> al = new ArrayList<Rua>();
+		int menorDist = 0;
+		double dist = 0;
+			for (int j = 1; j < caminhos[0].length - 1; j++)
+			{
+				dist = caminhos[0][j].getDistancia() + dist;
+			}
+
+		double distTemp = 0;
+		for(int i = 1; i < caminhos.length; i++)
+		{
+			for (int j = 1; j < caminhos[i].length - 1; j++)
+			{
+				distTemp = caminhos[i][j].getDistancia() + distTemp;
+			}
+			if (distTemp < dist)
+			{
+				dist = distTemp;
+				menorDist = i;
+			}
+		}
+		//caminhos[i][j].getInicio().distance(caminhos[i][j].getFim().getX(), caminhos[i][j].getFim().getY());
+		return al;
+	}
 	//Analisa todas as ruas que fazem conexão com um determinado Waypoint
 	public Rua[] verConexoes(Waypoint a, Rua b)
 	{

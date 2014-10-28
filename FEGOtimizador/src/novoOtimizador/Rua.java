@@ -14,6 +14,7 @@ public class Rua
 	protected Waypoint inicio;
 	protected Waypoint fim;
 	protected float velocidade;
+	protected double distancia;
 	protected boolean[] direcao;
 	/*
 	 * boolean[0] -> sentido ir (inicio - fim)
@@ -89,5 +90,16 @@ public class Rua
 	public String getNome() 
 	{
 		return nome;
+	}
+
+	public double getDistancia() 
+	{
+		distancia = getInicio().distance(getFim().getX(), getFim().getY());
+		return distancia;
+	}
+
+	public void setDistancia(double distancia) 
+	{
+		this.distancia = distancia;
 	}
 }
