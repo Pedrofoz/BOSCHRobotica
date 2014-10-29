@@ -11,6 +11,7 @@ public class Destinos {
 	private String Descricao;
 	private String nomeDaRua;
 	private Color cor;
+	/*private Rua rua;*/
 	private Waypoint localizacao;
 	
 	
@@ -54,5 +55,11 @@ public class Destinos {
 	{
 		this.id = id;
 	}
+	/*public Rua getRua() {
+		return rua;
+	}
+	public void setRua(Rua rua) {
+		this.rua = rua;
+	}*/
 	
 }

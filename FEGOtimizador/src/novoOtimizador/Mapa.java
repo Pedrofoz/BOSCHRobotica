@@ -47,8 +47,53 @@ public class Mapa {
 	//Método para encontrar o menor caminho
 	public ArrayList<Rua> menorCaminho(Destinos[] destino, int op )
 	{
+		
 		/*
-		 * op = 0 ----> menor distancia
+		 * Rua rotas[][] = {};
+		rotas[0][0] = ruaAtual;
+		
+		Integer linhaI = 0;
+		Integer linhaF = 0;
+		
+		Rua[] ruasPossiveis;
+		
+		do{
+			
+			for(int i=linhaI; i<= linhaF; i ++){	//para percorrer apenas as ruas de bifurcação encontradas na ultima analise
+				if(rotas[i][rotas[i].length] == ruaDestino){ //caso a ultima ruas encontrada seja a rua de destino ele nao tentara encontrar conexão
+					ruasPossiveis = verConexoes(rotas[i][rotas[i].length].getFim(), rotas[i][rotas[i].length]);
+					for(Rua r : ruasPossiveis){
+						rotas[rotas.length+1] = ruasPossiveis; //adiciona na nova linha a linha de origem
+						rotas[rotas.length+1] [rotas[i].length + 1] = r; //adiciona na ultima coluna a possivel rua
+					}
+				}
+			}
+			linhaI = linhaF + 1;
+			linhaF = rotas.length;
+			
+		}while(linhaI<linhaF); //Caso não exista mais conexão nao sera adicionado nenhuma linha nova... desta forma linhaI vai ser igual ao valor da quantidade atual de linhas +1 e a linhaF será igual... ou seja ele para de ver as rotas
+		
+		Rua rotasComDestinoFinal[][] = {};
+		for(int i=0;i<rotas.length;i++){
+			for(int j=0;j<rotas[i].length;j++){
+				if(rotas[i][j] == ruaDestino){
+					rotasComDestinoFinal[i] = rotas[i];
+				}
+			}
+		}
+		 		
+		 */
+		
+		/*****************************************************************************************************************************
+		 * ACIMA ALTERAÇÕES COM PAT
+		 * ABAIXO  ALTERAÇÕES MINIMAS 
+		 * 		----FALTA COLOCAR RUA DO OBJETO DESTINO COMO ATUALIN E ATUALFIM, CANCELANDO O ARTIFICIO MATEMATICO
+		 * 
+		 * 
+		 * ****************************************************************************************************************************
+		 */
+		
+		/* op = 0 ----> menor distancia
 		 * op = 1 ----> menor tempo
 		 * op = 2 ----> menor numero de ruas
 		 */
@@ -156,7 +201,7 @@ public class Mapa {
 			if(atual.getDirecao()[0] == true)
 			{				
 				//Inicio -> Fim
-				ruasPossiveis = verConexoes(atual.getFim(), atual);
+				ruasPossiveis = verConexoes(atual);
 					//Cascatear o processo de conexoes
 					//Adicionando toda nova conexao a uma nova linha e copiando as colunas anteriores
 					/*
@@ -185,11 +230,11 @@ public class Mapa {
 						}						
 					}
 			}
-			if(atual.getDirecao()[1] == true)
+			/*if(atual.getDirecao()[1] == true)
 			{
 				//Fim -> Inicio
 				//Executar similarmente ao anterior (Inicio -> Fim)
-				ruasPossiveis = verConexoes(atual.getInicio(), atual);
+				ruasPossiveis = verConexoes(atual);
 				//Cascatear o processo de conexoes
 				//Adicionando toda nova conexao a uma nova linha e copiando as colunas anteriores
 				/*
@@ -203,7 +248,7 @@ public class Mapa {
 				 * 1) [INICIO][a][b][c][d][FINAL]
 				 * 2) [INICIO][a][b][c][e][g][h][FINAL]
 				 */
-				for (int z = 0; z < ruasPossiveis.length; z++) 
+				/*for (int z = 0; z < ruasPossiveis.length; z++) 
 				{
 					if(!compararRua(ruasPossiveis[z],l)) //verifica se a rua a ser adicionada não é preexistente na mesma linha
 					{
@@ -217,9 +262,10 @@ public class Mapa {
 						liberaCol = true;//libera uma nova coluna, caso uma nova bifurcação tenha sidop encontrada
 					}						
 				}
-			}
+			}*/
 			if(liberaCol)
 				c++;
+			
 			//mover apos inseir o outro caso de if, linhaOrigem++ e atual blabla  para depois do 2º if (atual.getDirecao()[1] == true)
 			
 			/*linhaOrigem = 0
@@ -255,10 +301,7 @@ public class Mapa {
 			{
 				if(caminhosPossiveis[i][j] == atualFim)
 				{
-					for (int s = 0; s < caminhosPossiveis[i].length; s++)
-					{
-						caminhosObtidos[l][s] = caminhosPossiveis[i][s];
-					}
+					caminhosObtidos[l] = caminhosPossiveis[i];
 				}
 			}
 			l++;
@@ -276,11 +319,15 @@ public class Mapa {
 	{
 		ArrayList<Rua> al = new ArrayList<Rua>();
 		int menorDist = 0;
+		/*
+		 * ACRESCENTAR A DIST E DISTTEMP A DISTANCIA AO PONTO DE INICIO E FIM (ATUALIN E ATUALFIM)
+		 */
 		double dist = 0;
 			for (int j = 1; j < caminhos[0].length - 1; j++)
 			{
 				dist = caminhos[0][j].getDistancia() + dist;
 			}
+			
 
 		double distTemp = 0;
 		for(int i = 1; i < caminhos.length; i++)
@@ -299,9 +346,9 @@ public class Mapa {
 		return al;
 	}
 	//Analisa todas as ruas que fazem conexão com um determinado Waypoint
-	public Rua[] verConexoes(Waypoint a, Rua b)
+	public Rua[] verConexoes(Rua a)
 	{
-		Rua[] r = {b};
+		Rua[] r = {a};
 		Rua ruaux = new Rua();
 		ArrayList<Rua> auxL = new ArrayList<Rua>();
 		Iterator it = ruas.iterator();
@@ -310,7 +357,10 @@ public class Mapa {
 		{
 			ruaux = (Rua) it.next();
 			//Viabiliza a conexao por sentidos permitidos
-			if ((ruaux.getInicio().equals(a) && ruaux.getDirecao()[0] == true) || (ruaux.getFim().equals(a) && ruaux.getDirecao()[1] == true))
+			if ((ruaux.getInicio().equals(a.getInicio()) && ruaux.getDirecao()[0] == true) || 
+					(ruaux.getFim().equals(a.getInicio()) && ruaux.getDirecao()[1] == true) ||
+					(ruaux.getInicio().equals(a.getFim()) && ruaux.getDirecao()[0] == true) || 
+					(ruaux.getFim().equals(a.getFim()) && ruaux.getDirecao()[1] == true))			
 			{
 				r[i] = ruaux;
 				i++;
