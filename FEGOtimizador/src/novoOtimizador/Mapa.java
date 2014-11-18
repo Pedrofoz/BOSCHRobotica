@@ -43,6 +43,36 @@ public class Mapa {
 	{
 		this.destinos = destinos;
 	}
+	/****
+	 *	public void trilhaCaminho (ArrayList<Rua> aL, Destinos[] destino)
+	 *{
+	 *
+	 	// destino[0] = ponto atual
+		// destino[1] = ponto final
+		 
+	 *	Path p = new Path();
+	 *	p.add(destino[0].localizacao());
+	 *	for(int i = 0; i < aL.size() - 1; i++)
+		{
+			if (aL.get(i).getInicio().equals(aL.get(i+1).getInicio()) || aL.get(i).getInicio().equals(aL.get(i+1).getFim()) 
+			{
+				p.add(aL.get(i).getInicio());
+			}
+			else
+			{
+				p.add(aL.get(i).getFim());
+			}
+		}
+		p.add(destino[1].localizacao());
+		
+		//PATH FORMADO! AGORA DEVE-SE NAVEGAR O MESMO
+		
+		DifferentialPilot pilot;
+		Navigator n = Navigator(pilot);
+		n.followRoute(p);
+		
+	 *}
+	 */ 
 
 	//Método para encontrar o menor caminho
 	public ArrayList<Rua> menorCaminho(Destinos[] destino, int op )
@@ -308,31 +338,103 @@ public class Mapa {
 		}
 		switch(op)
 		{
-			case 0: aL = menorDist(caminhosObtidos);break;
+			case 0: aL = menorDist(caminhosObtidos, destino[0], destino[1]);break;
 			case 1: break;
 			case 2: break;
 			default: break;
 		}
 		return aL;
 	}
-	public ArrayList<Rua> menorDist(Rua[][] caminhos)
+	public ArrayList<Rua> menorDist(Rua[][] caminhos, Destinos partida, Destinos chegada)
 	{
 		ArrayList<Rua> al = new ArrayList<Rua>();
 		int menorDist = 0;
 		/*
-		 * ACRESCENTAR A DIST E DISTTEMP A DISTANCIA AO PONTO DE INICIO E FIM (ATUALIN E ATUALFIM)
+		 * r = caminhos[0][0];
+		 * Distancia da partida para a proxima rua da conexao
+		 * if (r.getInicio.equals(caminhos[0][1].getInicio()) || (r.getFim.equals(caminhos[0][1].getInicio()))
+		 * {
+		 * 		dist =  Math.sqrt((Math.pow((partida.getLocalizacao().getX()-r.getInicio().getX()),2.0))+(Math.pow((partida.getLocalizacao().getY()-r.getInicio().getY()),2.0)))		
+		 * }
+		 * else
+		 * {
+		 * 		dist = Math.sqrt((Math.pow((partida.getLocalizacao().getX()-r.getFim().getX()),2.0))+(Math.pow((partida.getLocalizacao().getY()-r.getFim().getY()),2.0)));  
+		 * }
+		 * 
+		 * Distancia da chegada para a penultima rua da conexao
+		 * r = caminhos[0][caminhos[0].length];
+		 * if (r.getInicio.equals(caminhos[0][caminhos[0].length-1].getInicio()) || (r.getFim.equals(caminhos[0][1].getInicio()))
+		 * {
+		 * 		dist =  Math.sqrt((Math.pow((chegada.getLocalizacao().getX()-r.getInicio().getX()),2.0))+(Math.pow((chegada.getLocalizacao().getY()-r.getInicio().getY()),2.0)))		
+		 * }
+		 * else
+		 * {
+		 * 		dist = Math.sqrt((Math.pow((chegada.getLocalizacao().getX()-r.getFim().getX()),2.0))+(Math.pow((chegada.getLocalizacao().getY()-r.getFim().getY()),2.0)));  
+		 * }
+		 * 
+		 * ACRESCENTADO A DIST, AS DISTANCIAS ENTRE PARTIDA E CHEGADA ÀS RUAS DE CONEXAO
 		 */
+		/***
 		double dist = 0;
 			for (int j = 1; j < caminhos[0].length - 1; j++)
 			{
 				dist = caminhos[0][j].getDistancia() + dist;
 			}
+			/*int i = 0;
+			 * r = caminhos[i][0];
+		 * Distancia da partida para a proxima rua da conexao
+		 * if (r.getInicio.equals(caminhos[i][1].getInicio()) || (r.getFim.equals(caminhos[i][1].getInicio()))
+		 * {
+		 * 		dist =  Math.sqrt((Math.pow((partida.getLocalizacao().getX()-r.getInicio().getX()),2.0))+(Math.pow((partida.getLocalizacao().getY()-r.getInicio().getY()),2.0)))		
+		 * }
+		 * else
+		 * {
+		 * 		dist = Math.sqrt((Math.pow((partida.getLocalizacao().getX()-r.getFim().getX()),2.0))+(Math.pow((partida.getLocalizacao().getY()-r.getFim().getY()),2.0)));  
+		 * }
+		 * 
+		 * Distancia da chegada para a penultima rua da conexao
+		 * r = caminhos[i][caminhos[i].length];
+		 * if (r.getInicio.equals(caminhos[i][caminhos[i].length-1].getInicio()) || (r.getFim.equals(caminhos[i][caminhos[i].length-1].getInicio()))
+		 * {
+		 * 		dist =  Math.sqrt((Math.pow((chegada.getLocalizacao().getX()-r.getInicio().getX()),2.0))+(Math.pow((chegada.getLocalizacao().getY()-r.getInicio().getY()),2.0)))		
+		 * }
+		 * else
+		 * {
+		 * 		dist = Math.sqrt((Math.pow((chegada.getLocalizacao().getX()-r.getFim().getX()),2.0))+(Math.pow((chegada.getLocalizacao().getY()-r.getFim().getY()),2.0)));  
+		 * }
+		 * for (int j = 1; j < caminhos[0].length - 1; j++)
+			{
+				dist = caminhos[0][j].getDistancia() + dist;
+			}
 			
-
-		double distTemp = 0;
-		for(int i = 1; i < caminhos.length; i++)
-		{
-			for (int j = 1; j < caminhos[i].length - 1; j++)
+			//dist = distancia da primeira linha!
+			 
+			 
+		 * i++;
+		 * do{
+		 * 
+		 * r = caminhos[i][0];
+		 * Distancia da partida para a proxima rua da conexao
+		 * if (r.getInicio.equals(caminhos[i][1].getInicio()) || (r.getFim.equals(caminhos[i][1].getInicio()))
+		 * {
+		 * 		dist =  Math.sqrt((Math.pow((partida.getLocalizacao().getX()-r.getInicio().getX()),2.0))+(Math.pow((partida.getLocalizacao().getY()-r.getInicio().getY()),2.0)))		
+		 * }
+		 * else
+		 * {
+		 * 		dist = Math.sqrt((Math.pow((partida.getLocalizacao().getX()-r.getFim().getX()),2.0))+(Math.pow((partida.getLocalizacao().getY()-r.getFim().getY()),2.0)));  
+		 * }
+		 * 
+		 * Distancia da chegada para a penultima rua da conexao
+		 * r = caminhos[i][caminhos[i].length];
+		 * if (r.getInicio.equals(caminhos[i][caminhos[i].length-1].getInicio()) || (r.getFim.equals(caminhos[i][caminhos[i].length-1].getInicio()))
+		 * {
+		 * 		dist =  Math.sqrt((Math.pow((chegada.getLocalizacao().getX()-r.getInicio().getX()),2.0))+(Math.pow((chegada.getLocalizacao().getY()-r.getInicio().getY()),2.0)))		
+		 * }
+		 * else
+		 * {
+		 * 		dist = Math.sqrt((Math.pow((chegada.getLocalizacao().getX()-r.getFim().getX()),2.0))+(Math.pow((chegada.getLocalizacao().getY()-r.getFim().getY()),2.0)));  
+		 * }
+		 * for (int j = 1; j < caminhos[i].length - 1; j++)
 			{
 				distTemp = caminhos[i][j].getDistancia() + distTemp;
 			}
@@ -341,9 +443,20 @@ public class Mapa {
 				dist = distTemp;
 				menorDist = i;
 			}
-		}
-		//caminhos[i][j].getInicio().distance(caminhos[i][j].getFim().getX(), caminhos[i][j].getFim().getY());
+			i++;
+		 * }while(i < caminhos.length)
+		 * 
+		  //UMA VEZ ENCONTRADA A LINHA COM MENOR DISTANCIA, ENTAO ADICIONA-SE ELA AO ARRAYLIST aL
+		   
+		 * for (int s = 0; s < caminhos[menorDist].length; s++)
+		 * {
+		 * 		aL.add(caminhos[menorDist][s];
+		 * }
+		 *
+
+		*/
 		return al;
+		
 	}
 	//Analisa todas as ruas que fazem conexão com um determinado Waypoint
 	public Rua[] verConexoes(Rua a)
