@@ -15,6 +15,18 @@ public class Destinos {
 	private Waypoint localizacao;
 	
 	
+	public Destinos(int id, String descricao, String nomeDaRua, Color cor, Waypoint localizacao) 
+	{
+		this.id = id;
+		Descricao = descricao;
+		this.nomeDaRua = nomeDaRua;
+		this.cor = cor;
+		this.localizacao = localizacao;
+	}
+	public Destinos()
+	{
+		//
+	}
 	public String getNomeDaRua()
 	{
 		return this.nomeDaRua;
