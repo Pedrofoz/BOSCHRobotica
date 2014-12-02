@@ -4,9 +4,7 @@ import lejos.robotics.Color;
 import lejos.robotics.navigation.Waypoint;
 
 public class Destinos {
-	/*
-	 * oi
-	 */
+	
 	private int id;
 	private String Descricao;
 	private String nomeDaRua;
@@ -23,10 +21,8 @@ public class Destinos {
 		this.cor = cor;
 		this.localizacao = localizacao;
 	}
-	public Destinos()
-	{
-		//
-	}
+	public Destinos(){}
+	
 	public String getNomeDaRua()
 	{
 		return this.nomeDaRua;
@@ -35,6 +31,7 @@ public class Destinos {
 	{
 		this.nomeDaRua = s;
 	}
+	
 	public Waypoint getLocalizacao() 
 	{
 		return localizacao;
@@ -43,6 +40,7 @@ public class Destinos {
 	{
 		this.localizacao = localizacao;
 	}
+	
 	public Color getCor() 
 	{
 		return cor;
@@ -51,6 +49,7 @@ public class Destinos {
 	{
 		this.cor = cor;
 	}
+	
 	public String getDescricao() 
 	{
 		return Descricao;
@@ -59,6 +58,7 @@ public class Destinos {
 	{
 		Descricao = descricao;
 	}
+	
 	public int getId() 
 	{
 		return id;
@@ -67,6 +67,7 @@ public class Destinos {
 	{
 		this.id = id;
 	}
+	
 	/*public Rua getRua() {
 		return rua;
 	}

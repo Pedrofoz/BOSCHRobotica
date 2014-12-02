@@ -11,21 +11,17 @@ import lejos.robotics.navigation.Waypoint;
 import lejos.robotics.pathfinding.Path;
 
 public class Mapa {
-	/*
-	 * oi
-	 */
+	
+
 	protected ArrayList<Rua> ruas;
 	protected ArrayList<Destinos> destinos;
 	protected Rua[][] caminhosPossiveis = {};
 	
+	
+	
 	//Construtores
-	public Mapa() 
-	{
-		//
-	}
-	public Mapa(ArrayList<Rua> ruas, ArrayList<Destinos> destinos) 
-	{
-		super();
+	public Mapa() {}
+	public Mapa(ArrayList<Rua> ruas, ArrayList<Destinos> destinos) {
 		this.ruas = ruas;
 		this.destinos = destinos;
 	}
@@ -39,6 +35,7 @@ public class Mapa {
 	{
 		this.ruas = ruas;
 	}
+	
 	public ArrayList<Destinos> getDestinos() 
 	{
 		return destinos;
@@ -48,22 +45,20 @@ public class Mapa {
 		this.destinos = destinos;
 	}
 	
-	 	public void trilhaCaminho (ArrayList<Rua> aL, Destinos[] destino)
-	 {
+	
+	
+	public void trilhaCaminho (ArrayList<Rua> aL, Destinos[] destino) {
 	 
 	 	// destino[0] = ponto atual
 		// destino[1] = ponto final
 		 
 	 	Path p = new Path();
 	 	p.add(destino[0].getLocalizacao());
-	 	for(int i = 0; i < aL.size() - 1; i++)
-		{
-			if (aL.get(i).getInicio().equals(aL.get(i+1).getInicio()) || aL.get(i).getInicio().equals(aL.get(i+1).getFim()))
-			{
+	 	for(int i = 0; i < aL.size() - 1; i++){
+			if (aL.get(i).getInicio().equals(aL.get(i+1).getInicio()) || aL.get(i).getInicio().equals(aL.get(i+1).getFim())){
 				p.add(aL.get(i).getInicio());
 			}
-			else
-			{
+			else{
 				p.add(aL.get(i).getFim());
 			}
 		}
@@ -76,7 +71,6 @@ public class Mapa {
 		n.followPath(p);
 		
 	 }
-	 
 
 	//Método para encontrar o menor caminho
 	public ArrayList<Rua> menorCaminho(Destinos[] destino, int op )
@@ -135,7 +129,7 @@ public class Mapa {
 		// destino[1] = ponto final
 		//Variaveis auxiliares
 		ArrayList<Rua> aL = new ArrayList<Rua>();
-		Iterator it = ruas.iterator();
+		Iterator<Rua> it = ruas.iterator();
 		int a = 0;
 		Rua r = new Rua();
 		
@@ -453,13 +447,14 @@ public class Mapa {
 		return al;
 		
 	}
+	
 	//Analisa todas as ruas que fazem conexão com um determinado Waypoint
 	public Rua[] verConexoes(Rua a)
 	{
 		Rua[] r = {a};
 		Rua ruaux = new Rua();
 		ArrayList<Rua> auxL = new ArrayList<Rua>();
-		Iterator it = ruas.iterator();
+		Iterator<Rua> it = ruas.iterator();
 		int i = 1;
 		while(it.hasNext())
 		{
@@ -476,15 +471,13 @@ public class Mapa {
 		}
 		return r;
 	}
-	public Boolean compararRua(Rua r, int linha)
-	{
-		for(int col = 0; col < caminhosPossiveis[0].length; col++)
-			{
-				if(r.equals(caminhosPossiveis[linha][col]))
-				{
+	public Boolean compararRua(Rua r, int linha){
+		for(int col = 0; col < caminhosPossiveis[0].length; col++){
+				if(r.equals(caminhosPossiveis[linha][col])){
 					return false;
 				}
 			}
 		return true;	
 	}
+
 }

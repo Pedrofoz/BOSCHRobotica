@@ -1,14 +1,9 @@
 package novoOtimizador;
 
-import lejos.geom.Point;
 import lejos.robotics.navigation.Waypoint;
 
+public class Rua {
 
-public class Rua 
-{
-	/*
-	 * oi
-	 */
 	//Parametros
 	protected String nome;
 	protected Waypoint inicio;
@@ -25,15 +20,12 @@ public class Rua
 	 * boolean[0] -> reta TRUE / curva FALSE
 	 * boolean[1] -> curva à  direita TRUE / esquerda FALSE
 	 */
-	//Construtor
-	public Rua()
-	{
-		//
-	}
 	
-	public Rua(String nome, Waypoint inicio, Waypoint fim, float velocidade, boolean[] direcao, boolean[] tipo) 
-	{
-		super();
+	
+	//Construtor
+	public Rua(){
+	}
+	public Rua(String nome, Waypoint inicio, Waypoint fim, float velocidade, boolean[] direcao, boolean[] tipo) {
 		setNome(nome);
 		setInicio(inicio);
 		setFim(fim);
@@ -42,11 +34,9 @@ public class Rua
 		setTipo(tipo);
 	}
 
+
+	
 	//Metodos Acessores
-	public void setNome(String s)
-	{
-		this.nome = s;
-	}
 	public Waypoint getInicio()
 	{
 		return inicio;
@@ -55,6 +45,7 @@ public class Rua
 	{
 		this.inicio = inicio;
 	}
+	
 	public Waypoint getFim() 
 	{
 		return fim;
@@ -63,6 +54,7 @@ public class Rua
 	{
 		this.fim = fim;
 	}
+	
 	public float getVelocidade() 
 	{
 		return velocidade;
@@ -71,6 +63,7 @@ public class Rua
 	{
 		this.velocidade = velocidade;
 	}
+	
 	public boolean[] getDirecao() 
 	{
 		return direcao;
@@ -79,6 +72,7 @@ public class Rua
 	{
 		this.direcao = direcao;
 	}
+	
 	public boolean[] getTipo() 
 	{
 		return tipo;
@@ -87,9 +81,14 @@ public class Rua
 	{
 		this.tipo = direcao;
 	}
+	
 	public String getNome() 
 	{
 		return nome;
+	}
+	public void setNome(String s)
+	{
+		this.nome = s;
 	}
 
 	public double getDistancia() 
@@ -97,9 +96,9 @@ public class Rua
 		distancia = getInicio().distance(getFim().getX(), getFim().getY());
 		return distancia;
 	}
-
 	public void setDistancia(double distancia) 
 	{
 		this.distancia = distancia;
 	}
+
 }
