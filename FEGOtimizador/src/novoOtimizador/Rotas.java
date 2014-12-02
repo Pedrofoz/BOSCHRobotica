@@ -13,7 +13,7 @@ public class Rotas{
 	 * boolean[0] -> sentido ir (inicio - fim)
 	 * boolean[1] -> sentido volta (fim - inicio)
 	 */
-	
+	//
 	boolean[] iv = {true, true};
 	boolean[] v = {false, true};
 	boolean[] i = {true, false};
